@@ -57,6 +57,11 @@ paths:
                   foo: BZZZZZZ
                   bar: BZZZZZZ
                   baz: BZZZZZZ
+              QUX:
+                value:
+                  foo: QuuuuuuuuuuuX
+                  bar: QuuuuuuuuuuuX
+                  baz: QuuuuuuuuuuuX
       responses:
         '200':
           description: |

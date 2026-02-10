@@ -71,28 +71,9 @@ paths:
               schema:
                 type: object
                 required:
-                  - access_token
-                  - token_type
-                  - expires_in
-                  - refresh_token
+                  - foo
                 properties:
-                  access_token:
+                  foo:
                     type: string
-                    description: Access token (bearer).
-                    examples:
-                      - eyJ0eXAiOi...
-                  token_type:
-                    type: string
-                    description: Type of the token.
-                    default: Bearer
-                  expires_in:
-                    type: integer
-                    description: 'Token''s expiration time, in minutes.'
-                    examples:
-                      - 86400
-                  refresh_token:
-                    type: string
-                    description: Refresh token. Can be used to refresh access token without the need to re-authenticate.
-                    examples:
-                      - 50679c5db61d63b107273fa11a666a09fc7ae28
+                    description: foo.
       security: []

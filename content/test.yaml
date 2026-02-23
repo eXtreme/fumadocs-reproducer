@@ -8,6 +8,53 @@ servers:
   - url: 'https://production.example.com'
     description: Production
 paths:
+  /test1:
+    post:
+      operationId: test1
+      requestBody:
+        content:
+          application/json:
+            examples:
+              test1:
+                value:
+                  optionalObjectWithRequiredProp:
+                    foo: foo
+                    baz: BILL
+            schema:
+              type: object
+              required:
+                - requiredObject
+              properties:
+                requiredObject:
+                  type: object
+                  properties:
+                    optionalProperty:
+                      type: string
+                optionalObject:
+                  type: object
+                  properties:
+                    foo:
+                      type: string
+                optionalObjectWithRequiredProp:
+                  type: object
+                  required:
+                    - foo
+                    - baz
+                  properties:
+                    foo:
+                      type: string
+                    bar:
+                      type: string
+                    baz:
+                      type: string
+                      enum:
+                        - BILL
+                        - GOODS
+                        - PERSON_TO_PERSON
+                        - OTHER
+                        - SERVICES
+                      example: BILL
+
   /foobar:
     post:
       servers:

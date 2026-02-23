@@ -1,11 +1,13 @@
-openapi: 3.1.1
+openapi: 3.2.0
 info:
   version: 2025.10.21
   title: 'Test API'
 servers:
-  - url: 'https://sandbox.example.com'
+  - name: Sandbox
+    url: 'https://sandbox.example.com'
     description: Sandbox
-  - url: 'https://production.example.com'
+  - name: Production
+    url: 'https://production.example.com'
     description: Production
 paths:
   /test1:
@@ -54,7 +56,50 @@ paths:
                         - OTHER
                         - SERVICES
                       example: BILL
-
+  /example-one-of:
+    post:
+      operationId: example-one-of
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              # required:
+              #   - type
+              # properties:
+              #   type:
+              #     type: string
+              #     enum:
+              #       - FOO
+              #       - BAR
+              #       - BAZ
+              oneOf:
+                - $ref: '#/components/schemas/ExampleFooRequest'
+                - $ref: '#/components/schemas/ExampleBarRequest'
+                - $ref: '#/components/schemas/ExampleBazRequest'
+              discriminator:
+                propertyName: type
+                mapping:
+                  FOO: '#/components/schemas/ExampleFooRequest'
+                  BAR: '#/components/schemas/ExampleBarRequest'
+                  BAZ: '#/components/schemas/ExampleBazRequest'
+            examples:
+              fooExample:
+                value:
+                  type: FOO
+                  foo: foo
+              foo2Example:
+                value:
+                  type: FOO
+                  foo: foo2
+              barExample:
+                value:
+                  type: BAR
+                  bar: bar
+              bazExample:
+                value:
+                  type: BAZ
+                  baz: baz
   /foobar:
     post:
       servers:
@@ -124,3 +169,42 @@ paths:
                     type: string
                     description: foo.
       security: []
+components:
+  schemas:
+    ExampleFooRequest:
+      type: object
+      required:
+        - type
+        - foo
+      properties:
+        type:
+          type: string
+          # enum: [FOO]
+          example: FOO
+        foo:
+          type: string
+    ExampleBarRequest:
+      type: object
+      required:
+        - type
+        - bar
+      properties:
+        type:
+          type: string
+          # enum: [BAR]
+          example: BAR
+        bar:
+          type: string
+          example: test test
+    ExampleBazRequest:
+      type: object
+      required:
+        - type
+        - baz
+      properties:
+        type:
+          type: string
+          # enum: [BAZ]
+          example: BAZ
+        baz:
+          type: string
